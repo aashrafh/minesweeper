@@ -86,9 +86,28 @@ const actions = {
     }
     return colPattern;
   },
-  openCell({ state, commit }, { row, col }) {
-    let cell = state.pattern[row][col];
+  openCell({ state, dispatch, commit }, { row, col }) {
+    let pattern = state.pattern;
+    if (!pattern[row] || !pattern[row][col]) return;
+
+    let cell = pattern[row][col];
+    if (cell.data === 0) {
+      if (cell.display) return;
+      dispatch("floodFill", {
+        cell,
+        row,
+        col
+      });
+    }
     commit("openCell", cell);
+  },
+
+  floodFill({ dispatch, commit }, { cell, row, col }) {
+    commit("openCell", cell);
+    dispatch("openCell", { row, col: col + 1 });
+    dispatch("openCell", { row, col: col - 1 });
+    dispatch("openCell", { row: row + 1, col });
+    dispatch("openCell", { row: row - 1, col });
   }
 };
 
