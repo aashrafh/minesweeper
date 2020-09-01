@@ -1,14 +1,20 @@
 <template >
   <v-hover v-slot:default="{ hover }">
     <v-col>
-      <v-card :class="[{ 'on-hover': hover }, 'grid-cell', 'flex-center']" elevation="6" dark></v-card>
+      <v-card
+        :class="[{ 'on-hover': hover }, 'grid-cell', 'flex-center']"
+        elevation="6"
+        dark
+      >{{content}}</v-card>
     </v-col>
   </v-hover>
 </template>
 
 
 <script>
-export default {};
+export default {
+  props: ["content"]
+};
 </script>
 <style lang="scss" scoped>
 .grid-cell {

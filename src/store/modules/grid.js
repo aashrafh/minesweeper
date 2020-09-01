@@ -1,5 +1,5 @@
 const state = {
-  cells: [0, 0, 0, 0, "BOMB"],
+  cells: [0, 0, 0, 0, "X"],
   pattern: null,
   dim: 8
 };
@@ -78,9 +78,15 @@ const actions = {
   }
 };
 
+const getters = {
+  getPattern(state) {
+    return state.pattern;
+  }
+};
 export default {
   namespaced: true,
   state,
   mutations,
-  actions
+  actions,
+  getters
 };
