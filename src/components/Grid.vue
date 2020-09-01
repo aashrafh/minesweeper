@@ -7,10 +7,20 @@
 </template>
 <script>
 import Cell from "./Cell";
+import { mapActions } from "vuex";
+
 export default {
   name: "Grid",
   components: {
     Cell
+  },
+  methods: {
+    ...mapActions({
+      setPattern: "grid/setPattern"
+    })
+  },
+  created() {
+    this.setPattern();
   }
 };
 </script>
