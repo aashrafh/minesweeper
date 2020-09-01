@@ -4,12 +4,6 @@ const state = {
   dim: 8
 };
 
-const mutations = {
-  setPattern(state, pattern) {
-    state.pattern = pattern;
-  }
-};
-
 const actions = {
   async setPattern({ state, dispatch, commit }) {
     const pattern = [];
@@ -36,10 +30,11 @@ const actions = {
       let cell = state.cells[randomIdx];
 
       let prevCell = colPattern[col - 1];
-      if (prevCell) {
-        if (typeof cell === "string" && typeof prevCell === "number")
-          colPattern[col - 1] = prevCell + 1;
-        if (typeof cell === "number" && typeof prevCell === "string") cell += 1;
+      if (colPattern[col - 1]) {
+        if (typeof cell === "string" && typeof prevCell.data === "number")
+          colPattern[col - 1].data = prevCell.data + 1;
+        if (typeof cell === "number" && typeof prevCell.data === "string")
+          cell += 1;
       }
 
       if (row > 0) {
@@ -48,33 +43,61 @@ const actions = {
         const prevUpperRight = pattern[row - 1][col + 1];
 
         if (prevUpperLeft) {
-          if (typeof cell === "string" && typeof prevUpperLeft === "number")
-            pattern[row - 1][col - 1] = prevUpperLeft + 1;
+          if (
+            typeof cell === "string" &&
+            typeof prevUpperLeft.data === "number"
+          )
+            pattern[row - 1][col - 1].data = prevUpperLeft.data + 1;
 
-          if (typeof cell === "number" && typeof prevUpperLeft === "string")
+          if (
+            typeof cell === "number" &&
+            typeof prevUpperLeft.data === "string"
+          )
             cell += 1;
         }
 
         if (prevUpperMid) {
-          if (typeof cell === "string" && typeof prevUpperMid === "number")
-            pattern[row - 1][col] = prevUpperMid + 1;
+          if (typeof cell === "string" && typeof prevUpperMid.data === "number")
+            pattern[row - 1][col].data = prevUpperMid.data + 1;
 
-          if (typeof cell === "number" && typeof prevUpperMid === "string")
+          if (typeof cell === "number" && typeof prevUpperMid.data === "string")
             cell += 1;
         }
 
         if (prevUpperRight) {
-          if (typeof cell === "string" && typeof prevUpperRight === "number")
-            pattern[row - 1][col + 1] = prevUpperRight + 1;
+          if (
+            typeof cell === "string" &&
+            typeof prevUpperRight.data === "number"
+          )
+            pattern[row - 1][col + 1].data = prevUpperRight.data + 1;
 
-          if (typeof cell === "number" && typeof prevUpperRight === "string")
+          if (
+            typeof cell === "number" &&
+            typeof prevUpperRight.data === "string"
+          )
             cell += 1;
         }
       }
 
-      colPattern.push(cell);
+      colPattern.push({
+        display: false,
+        data: cell
+      });
     }
     return colPattern;
+  },
+  openCell({ state, commit }, { row, col }) {
+    let cell = state.pattern[row][col];
+    commit("openCell", cell);
+  }
+};
+
+const mutations = {
+  setPattern(state, pattern) {
+    state.pattern = pattern;
+  },
+  openCell(_, cell) {
+    cell.display = true;
   }
 };
 
