@@ -26,3 +26,9 @@ export default {
   background: #232222;
 }
 </style>
+
+/**
+app background
+card theme
+on hover card
+ */
