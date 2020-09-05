@@ -104,6 +104,11 @@ const actions = {
         col
       });
     }
+
+    if (cell.bomb) {
+      commit("loseGame", { state, rootState });
+    }
+
     commit("openCell", cell);
   },
   flagCell({ commit, state }, { row, col }) {
@@ -117,6 +122,17 @@ const actions = {
     dispatch("openCell", { row, col: col - 1 });
     dispatch("openCell", { row: row + 1, col });
     dispatch("openCell", { row: row - 1, col });
+  },
+  checkWin({ commit, state, rootState }) {
+    const pattern = state.pattern;
+    const numbers = [].concat(...pattern).filter(cell => {
+      return !cell.bomb && cell.data > 0;
+    });
+    const openedCells = [].concat(...pattern).filter(cell => {
+      return cell.data > 0 && cell.display;
+    });
+
+    if (numbers.length === openedCells.length) commit("winGame", rootState);
   }
 };
 
@@ -132,6 +148,17 @@ const mutations = {
   },
   openTimer(_, rootState) {
     rootState.timer.initTimer = new Date().getTime();
+  },
+  winGame(_, rootState) {
+    rootState.game.won = true;
+    rootState.timer.stopTime = true;
+  },
+  loseGame(_, { state, rootState }) {
+    rootState.game.lost = true;
+    state.pattern.map(cell => {
+      cell.display = true;
+    });
+    rootState.timer.stopTime = true;
   }
 };
 

@@ -11,7 +11,7 @@
             <v-card
               v-bind:class="[{ 'on-hover': hover, 'opened-cell': col.display, 'bomb': col.display && col.bomb && !col.flagged, 'flagged-bomb':  col.display && col.bomb && col.flagged}, 'grid-cell', 'flex-center']"
               elevation="6"
-              @click.left.prevent="openCell({row: rowIdx, col: colIdx})"
+              @click.left.prevent="openCell({row: rowIdx, col: colIdx}), checkWin()"
               @click.right.prevent="flagCell({row: rowIdx, col: colIdx})"
               dark
               outlined
@@ -27,7 +27,10 @@
       </template>
     </v-row>
     <v-row v-if="won">
-      <game-over />
+      <game-over message="You Win!" />
+    </v-row>
+    <v-row v-else-if="lost">
+      <game-over message="You Lose!" />
     </v-row>
   </v-container>
 </template>
@@ -43,15 +46,18 @@ export default {
   computed: {
     ...mapGetters({
       pattern: "grid/getPattern",
-      won: "game/isWin"
+      won: "game/isWin",
+      lost: "game/isLose"
     })
   },
   methods: {
-    ...mapActions({
-      setPattern: "grid/setPattern",
-      openCell: "grid/openCell",
-      flagCell: "grid/flagCell"
-    })
+    ...mapActions("grid", ["setPattern", "openCell", "flagCell", "checkWin"])
+    // ...mapActions({
+    //   setPattern: "grid/setPattern",
+    //   openCell: "grid/openCell",
+    //   flagCell: "grid/flagCell",
+    //   checkWin: "grid/checkWin"
+    // })
   },
   created() {
     this.setPattern();

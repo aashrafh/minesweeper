@@ -1,8 +1,8 @@
-<template v-if="won">
+<template>
   <div>
     <v-row class="centeralized" justify="center">
       <v-card class="text-center">
-        <v-card-title class="headline font-weight-bold">You win!</v-card-title>
+        <v-card-title class="headline font-weight-bold">{{message}}</v-card-title>
         <v-card-text>Play again?</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -21,6 +21,7 @@
 import { mapActions, mapGetters } from "vuex";
 export default {
   name: "GameOver",
+  props: ["message"],
   computed: {
     ...mapGetters({
       won: "game/isWin",
