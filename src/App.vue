@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <v-main>
+      <git-hub />
       <grid />
       <timer />
     </v-main>
@@ -10,13 +11,15 @@
 <script>
 import Grid from "./components/Grid";
 import Timer from "./components/Timer";
+import GitHub from "./components/GitHub";
 
 export default {
   name: "App",
 
   components: {
     Grid,
-    Timer
+    Timer,
+    GitHub
   },
 
   data: () => ({
