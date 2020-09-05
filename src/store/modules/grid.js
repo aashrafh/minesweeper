@@ -138,6 +138,9 @@ const mutations = {
 const getters = {
   getPattern(state) {
     return state.pattern;
+  },
+  getSize(state) {
+    return state.dim;
   }
 };
 export default {

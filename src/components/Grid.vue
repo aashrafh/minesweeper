@@ -16,7 +16,10 @@
               dark
               outlined
             >
-              <v-card-text v-if="col.display">{{col.data}}</v-card-text>
+              <div v-if="col.display">
+                <v-icon v-if="col.bomb">mdi-bomb</v-icon>
+                <v-card-text v-else>{{col.data}}</v-card-text>
+              </div>
               <v-icon v-else-if="col.flagged">mdi-asterisk</v-icon>
             </v-card>
           </v-col>
