@@ -8,12 +8,14 @@
 
 <script>
 import Grid from "./components/Grid";
+import Timer from "./components/Timer";
 
 export default {
   name: "App",
 
   components: {
-    Grid
+    Grid,
+    Timer
   },
 
   data: () => ({
