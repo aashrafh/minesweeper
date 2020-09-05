@@ -26,16 +26,24 @@
         </v-hover>
       </template>
     </v-row>
+    <v-row v-if="won">
+      <game-over />
+    </v-row>
   </v-container>
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
+import GameOver from "./GameOver";
 
 export default {
   name: "Grid",
+  components: {
+    GameOver
+  },
   computed: {
     ...mapGetters({
-      pattern: "grid/getPattern"
+      pattern: "grid/getPattern",
+      won: "game/isWin"
     })
   },
   methods: {

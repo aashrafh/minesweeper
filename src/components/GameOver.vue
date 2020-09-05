@@ -1,5 +1,5 @@
-<template>
-  <div v-if="won">
+<template v-if="won">
+  <div>
     <v-row class="centeralized" justify="center">
       <v-card class="text-center">
         <v-card-title class="headline font-weight-bold">You win!</v-card-title>
@@ -9,7 +9,7 @@
           <v-btn
             color="green lighten-1"
             text
-            @click="restartGame(), restartTime(), setGridSize(gridSize), setPattern()"
+            @click="restartGame(), restartTime(), setPattern()"
           >Yes</v-btn>
         </v-card-actions>
       </v-card>
@@ -18,7 +18,6 @@
 </template>
 
 <script>
-//v-if="won"
 import { mapActions, mapGetters } from "vuex";
 export default {
   name: "GameOver",
@@ -32,7 +31,6 @@ export default {
     ...mapActions({
       restartGame: "game/restartGame",
       restartTime: "timer/restartTime",
-      setGridSize: "grid/setGridSize",
       setPattern: "grid/setPattern"
     })
   }
