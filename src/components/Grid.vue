@@ -9,11 +9,12 @@
         <v-hover v-slot:default="{ hover }" :key="colIdx">
           <v-col>
             <v-card
-              v-bind:class="[{ 'on-hover': hover }, 'grid-cell', 'flex-center']"
+              v-bind:class="[{ 'on-hover': hover, 'opened-cell': col.display, 'bomb': col.display && col.bomb && !col.flagged, 'flagged-bomb':  col.display && col.bomb && col.flagged}, 'grid-cell', 'flex-center']"
               elevation="6"
-              dark
               @click.left.prevent="openCell({row: rowIdx, col: colIdx})"
               @click.right.prevent="flagCell({row: rowIdx, col: colIdx})"
+              dark
+              outlined
             >
               <v-card-text v-if="col.display">{{col.data}}</v-card-text>
               <v-icon v-else-if="col.flagged">mdi-asterisk</v-icon>
@@ -67,6 +68,27 @@ export default {
 .on-hover {
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.01) !important;
+}
+
+@mixin background-color($bomb: false, $flagged: false) {
+  @if $bomb {
+    @if $flagged {
+      background-color: forestgreen !important;
+    } @else {
+      background-color: firebrick !important;
+    }
+  } @else {
+    background-color: rgba(255, 255, 255, 0.01) !important;
+  }
+}
+.opened-cell {
+  @include background-color($bomb: false, $flagged: false);
+  &.bomb {
+    @include background-color($bomb: true, $flagged: false);
+  }
+  &.flagged-bomb {
+    @include background-color($bomb: true, $flagged: true);
+  }
 }
 </style>
 

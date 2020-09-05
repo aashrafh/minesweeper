@@ -83,7 +83,8 @@ const actions = {
       colPattern.push({
         data: cell,
         display: false,
-        flagged: false
+        flagged: false,
+        bomb: typeof cell === "string"
       });
     }
     return colPattern;
