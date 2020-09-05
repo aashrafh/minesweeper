@@ -80,8 +80,9 @@ const actions = {
       }
 
       colPattern.push({
+        data: cell,
         display: false,
-        data: cell
+        flagged: false
       });
     }
     return colPattern;
@@ -89,6 +90,7 @@ const actions = {
   openCell({ state, dispatch, commit }, { row, col }) {
     let pattern = state.pattern;
     if (!pattern[row] || !pattern[row][col]) return;
+    if (pattern[row][col].flagged) return;
 
     let cell = pattern[row][col];
     if (cell.data === 0) {
@@ -101,7 +103,11 @@ const actions = {
     }
     commit("openCell", cell);
   },
-
+  flagCell({ commit, state }, { row, col }) {
+    let cell = state.pattern[row][col];
+    if (cell.display) return;
+    commit("flagCell", { cell });
+  },
   floodFill({ dispatch, commit }, { cell, row, col }) {
     commit("openCell", cell);
     dispatch("openCell", { row, col: col + 1 });
@@ -117,6 +123,9 @@ const mutations = {
   },
   openCell(_, cell) {
     cell.display = true;
+  },
+  flagCell(_, { cell }) {
+    cell.flagged = !cell.flagged;
   }
 };
 

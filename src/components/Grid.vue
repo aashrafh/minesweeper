@@ -9,8 +9,10 @@
               elevation="6"
               dark
               @click.left.prevent="openCell({row: rowIdx, col: colIdx})"
+              @click.right.prevent="flagCell({row: rowIdx, col: colIdx})"
             >
               <v-card-text v-if="col.display">{{col.data}}</v-card-text>
+              <v-icon v-else-if="col.flagged">mdi-asterisk</v-icon>
             </v-card>
           </v-col>
         </v-hover>
@@ -31,7 +33,8 @@ export default {
   methods: {
     ...mapActions({
       setPattern: "grid/setPattern",
-      openCell: "grid/openCell"
+      openCell: "grid/openCell",
+      flagCell: "grid/flagCell"
     })
   },
   created() {
@@ -44,6 +47,10 @@ export default {
 .grid-cell {
   height: 2rem;
   width: 2rem;
+}
+.flag-icon {
+  height: 1.5rem;
+  widows: 1.5rem;
 }
 .flex-center {
   display: flex;
