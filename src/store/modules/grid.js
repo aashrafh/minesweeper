@@ -1,7 +1,8 @@
 const state = {
   cells: [0, 0, 0, 0, "X"],
   pattern: null,
-  dim: 8
+  dim: 8,
+  initTimer: null
 };
 
 const actions = {
@@ -91,6 +92,7 @@ const actions = {
     let pattern = state.pattern;
     if (!pattern[row] || !pattern[row][col]) return;
     if (pattern[row][col].flagged) return;
+    if (!state.initTimer) commit("openTimer");
 
     let cell = pattern[row][col];
     if (cell.data === 0) {
@@ -126,6 +128,9 @@ const mutations = {
   },
   flagCell(_, { cell }) {
     cell.flagged = !cell.flagged;
+  },
+  openTimer(state) {
+    state.initTimer = new Date().getTime();
   }
 };
 
