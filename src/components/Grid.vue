@@ -1,5 +1,9 @@
 <template>
   <v-container>
+    <v-row justify="center" align="center">
+      <p class="display-1 my-6">Minesweeper</p>
+      <v-icon x-large>mdi-bomb</v-icon>
+    </v-row>
     <v-row v-for="(row, rowIdx) in pattern" :key="rowIdx" justify="center" no-gutters>
       <template v-for="(col , colIdx) in row">
         <v-hover v-slot:default="{ hover }" :key="colIdx">
