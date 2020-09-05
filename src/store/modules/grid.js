@@ -89,11 +89,11 @@ const actions = {
     }
     return colPattern;
   },
-  openCell({ state, dispatch, commit }, { row, col }) {
+  openCell({ state, dispatch, commit, rootState }, { row, col }) {
     let pattern = state.pattern;
     if (!pattern[row] || !pattern[row][col]) return;
     if (pattern[row][col].flagged) return;
-    if (!state.initTimer) commit("openTimer");
+    if (!rootState.timer.initTimer) commit("openTimer", rootState);
 
     let cell = pattern[row][col];
     if (cell.data === 0) {
@@ -130,8 +130,8 @@ const mutations = {
   flagCell(_, { cell }) {
     cell.flagged = !cell.flagged;
   },
-  openTimer(state) {
-    state.initTimer = new Date().getTime();
+  openTimer(_, rootState) {
+    rootState.timer.initTimer = new Date().getTime();
   }
 };
 

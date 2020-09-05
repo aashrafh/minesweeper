@@ -15,10 +15,10 @@
       </v-card>
     </v-row>
   </div>
-  <div v-else-if="lost"></div>
 </template>
 
 <script>
+//v-if="won"
 import { mapActions, mapGetters } from "vuex";
 export default {
   name: "GameOver",
