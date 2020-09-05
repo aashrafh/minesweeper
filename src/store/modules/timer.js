@@ -52,9 +52,25 @@ const mutations = {
   }
 };
 
+const getters = {
+  getHours(state) {
+    return (state.hrs < 1 ? "" : state.hrs) + ":";
+  },
+  getMinutes(state) {
+    return (state.mins < 10 ? "0" : "") + state.mins + ":";
+  },
+  getSeconds(state) {
+    return (state.seconds < 10 ? "0" : "") + state.seconds;
+  },
+  getTime(_, getters) {
+    return getters.getHours + getters.getMinutes + getters.getSeconds;
+  }
+};
+
 export default {
   namespaced: true,
   state,
   mutations,
-  actions
+  actions,
+  getters
 };

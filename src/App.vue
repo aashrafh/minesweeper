@@ -2,6 +2,7 @@
   <v-app>
     <v-content>
       <grid />
+      <timer />
     </v-content>
   </v-app>
 </template>
