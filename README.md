@@ -3,7 +3,6 @@
 ## 📝 Table of Contents
 - [About](#about)
 - [Screenshots](#screenshots)
-- [How To Play](#play)
 - [Technology](#tech)
 - [Install](#Install)
 
